@@ -77,10 +77,10 @@ export default function Home() {
       </div>
 
       <div className= {generate ? "block" : "hidden"}>
-        <p className=' flex w-full justify-center my-5'>เมนูอาหาร : {info?.foodname}</p>
-        <p className=' flex w-full justify-center my-5'>ร้านค้า : {info?.shopname}</p>
-        <p className=' flex w-full justify-center my-5'>สถานที่ : {info?.place}</p>
-        <p className=' flex w-full justify-center my-5'>ราคา(บาท) : {info?.price}</p>
+        <p className=' flex w-full justify-center my-5'>เมนูอาหาร : {(info as any).foodname}</p>
+        <p className=' flex w-full justify-center my-5'>ร้านค้า : {(info as any).shopname}</p>
+        <p className=' flex w-full justify-center my-5'>สถานที่ : {(info as any).place}</p>
+        <p className=' flex w-full justify-center my-5'>ราคา(บาท) : {(info as any).price}</p>
       </div>
       
     </div>

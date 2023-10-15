@@ -54,7 +54,7 @@ export default function Search() {
           <button className=' bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500 ' onClick={makeRequest}>search</button>
         </div>
         <div>
-            <p>{result?.foodname}</p>
+            <p>{(result as any).foodname}</p>
         </div>
         </>
 
