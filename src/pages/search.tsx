@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 
-export default function search() {
+export default function Search() {
     const [searchQuery, setSearchQuery] = useState('');
     const [input, setInput] = useState('');
     const [result, setResult] = useState();
