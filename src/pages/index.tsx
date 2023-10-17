@@ -2,6 +2,11 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useAuth, TUCMCLogin } from "tucmc-auth";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { StyledEngineProvider } from "@mui/material";
 
 export default function Home() {
   const [info, setInfo] = useState({});
@@ -14,6 +19,14 @@ export default function Home() {
   const [error, setError] = useState(false);
   const [generate, setGenerate] = useState(false);
   const { loggedUser, signOut } = useAuth();
+
+  const handleChangeFoodType = (event: SelectChangeEvent) => {
+    setFoodtype(event.target.value);
+  };
+
+  const handleChangePlace = (event: SelectChangeEvent) => {
+    setPlace(event.target.value);
+  };
 
   let config = {
     method: "post",
@@ -31,6 +44,7 @@ export default function Home() {
   async function makeRequest() {
     try {
       const response = await axios.request(config);
+      console.log(foodtype);
       setInfo(response.data);
       setFoodname(response.data.foodname);
       setShopname(response.data.shopname);
@@ -79,81 +93,53 @@ export default function Home() {
       </div>
 
       <p className=" flex w-full justify-center my-10">เลือกประเภทอาหาร</p>
-      <div className=" flex flex-col justify-center items-center 2xs:flex-row 2xs:justify-evenly transition-all">
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setFoodtype("อาหาร");
-            }}
-          >
-            อาหารจานหลัก
-          </button>
-        </div>
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setFoodtype("เครื่องดื่ม");
-            }}
-          >
-            เครื่องดื่ม
-          </button>
-        </div>
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setFoodtype("ของทานเล่น");
-            }}
-          >
-            ของทานเล่น
-          </button>
+      <div>
+        <div className=" flex flex-col justify-center items-center">
+          <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Foodtype
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              value={foodtype}
+              onChange={handleChangeFoodType}
+              autoWidth
+              label="foodtype"
+            >
+              <MenuItem value="all">ทั้งหมด</MenuItem>
+              <MenuItem value="อาหาร">อาหารจานหลัก</MenuItem>
+              <MenuItem value="เครื่องดื่ม">เครื่องดื่ม</MenuItem>
+              <MenuItem value="ของทานเล่น">ของทานเล่น</MenuItem>
+            </Select>
+          </FormControl>
         </div>
       </div>
       <p className=" flex w-full justify-center my-10">เลือกโรงอาหาร</p>
       <div className="  grid place-items-center grid-cols-2 xs:flex xs:flex-row xs:justify-evenly">
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setPlace("โดมทอง");
-            }}
-          >
-            โดมทอง
-          </button>
-        </div>
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setPlace("ใต้ตึก 50 ปี");
-            }}
-          >
-            ใต้ตึก 50 ปี
-          </button>
-        </div>
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setPlace("โรงใหญ่");
-            }}
-          >
-            โรงใหญ่
-          </button>
-        </div>
-        <div>
-          <button
-            className=" bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
-            onClick={() => {
-              setPlace("โรง 80 ปี");
-            }}
-          >
-            โรง 80 ปี
-          </button>
+        <div className=" flex flex-col justify-center items-center">
+          <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Place
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              value={place}
+              onChange={handleChangePlace}
+              autoWidth
+              label="foodtype"
+            >
+              <MenuItem value="all">ทั้งหมด</MenuItem>
+              <MenuItem value="โดมทอง">โดมทอง</MenuItem>
+              <MenuItem value="ใต้ตึก 50 ปี">ใต้ตึก 50 ปี</MenuItem>
+              <MenuItem value="โรงใหญ่">โรงใหญ่</MenuItem>
+              <MenuItem value="โรง 80 ปี">โรง 80 ปี</MenuItem>
+            </Select>
+          </FormControl>
         </div>
       </div>
+
       <div className="flex justify-center my-10">
         <button
           className="bg-pink-200 hover:bg-pink-300 focus:bg-pink-500 px-4 py-1 rounded-xl my-3 transition duration-500"
@@ -172,15 +158,11 @@ export default function Home() {
         <p className=" flex w-full justify-center my-5">
           เมนูอาหาร : {foodname}
         </p>
-        <p className=" flex w-full justify-center my-5">
-          ร้านค้า : {shopname}
-        </p>
+        <p className=" flex w-full justify-center my-5">ร้านค้า : {shopname}</p>
         <p className=" flex w-full justify-center my-5">
           สถานที่ : {shopplace}
         </p>
-        <p className=" flex w-full justify-center my-5">
-          ราคา(บาท) : {price}
-        </p>
+        <p className=" flex w-full justify-center my-5">ราคา(บาท) : {price}</p>
       </div>
     </div>
   );
