@@ -6,7 +6,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { StyledEngineProvider } from "@mui/material";
 
 export default function Home() {
   const [info, setInfo] = useState({});
@@ -14,8 +13,8 @@ export default function Home() {
   const [shopname, setShopname] = useState("");
   const [shopplace, setShopplace] = useState("");
   const [price, setPrice] = useState("");
-  const [foodtype, setFoodtype] = useState("all");
-  const [place, setPlace] = useState("all");
+  const [foodtype, setFoodtype] = useState("");
+  const [place, setPlace] = useState("");
   const [error, setError] = useState(false);
   const [generate, setGenerate] = useState(false);
   const { loggedUser, signOut } = useAuth();
@@ -95,7 +94,7 @@ export default function Home() {
       <p className=" flex w-full justify-center my-10">เลือกประเภทอาหาร</p>
       <div>
         <div className=" flex flex-col justify-center items-center">
-          <FormControl sx={{ m: 1, minWidth: 80 }}>
+          <FormControl sx={{ m: 1, minWidth: 160 }}>
             <InputLabel id="demo-simple-select-autowidth-label">
               Foodtype
             </InputLabel>
@@ -128,7 +127,7 @@ export default function Home() {
               value={place}
               onChange={handleChangePlace}
               autoWidth
-              label="foodtype"
+              label="place"
             >
               <MenuItem value="all">ทั้งหมด</MenuItem>
               <MenuItem value="โดมทอง">โดมทอง</MenuItem>
